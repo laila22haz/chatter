@@ -1,0 +1,91 @@
+body {
+    background-color: #E7D8EA !important;
+    margin: 0 20px !important;
+}
+
+.tilte-chat h2 {
+    color: #d5a8de;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    text-align: left;
+}
+
+form {
+    max-width: 750px;
+    /*height: 490px;*/
+    /* position: absolute; */
+    /*top: 50%;*/
+    margin: auto;
+    margin-top: 40px;
+    /* left: 50%; */
+    /* transform: translate(-50%, -50%); */
+    background-color: #FFFFFF;
+    padding: 30px;
+    /* display: inline-block; */
+    text-align: right;
+    z-index: -1;
+}
+
+.purple-link {
+    color: #d5a8de;
+}
+
+#link-login {
+    text-align: left;
+    margin-top: 3px;
+}
+
+.user-info,
+.user-action {
+    border: none !important ;
+}
+
+.user-info,
+.user-action {
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.0);
+    background: rgba(217, 217, 217, 0.40);
+}
+
+.user-info ul,
+.user-action ul {
+    list-style: none;
+}
+
+.user-info label,
+.user-action label {
+    display: block;
+    text-align: left;
+    color: #d5a8de;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-top: 0%;
+}
+#remember_me {
+    display: inline-block !important;
+}
+.formError {
+    text-align: center;
+    background-color: #ff6b6b; /* Red color */
+    color: #fff; /* White text color */
+    padding: 10px;
+    border-radius: 10px; /* Adjust the border-radius as needed */
+    margin-top: 10px; /* Adjust the margin as needed */
+}
+/* Style for the Remember Me Checkbox */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+}
+.checkbox-container input {
+    margin-right: 5px;  /* Adjust the margin between the checkbox and label */
+}

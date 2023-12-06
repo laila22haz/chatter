@@ -1,0 +1,120 @@
+body {
+    background-color: #E7D8EA;
+    margin:0 20px; 
+}
+h2 {
+    color: #d5a8de;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    text-align: left;
+}
+
+form {
+    max-width: 750px;
+    /*height: 490px;*/
+    /* position: absolute; */
+    /*top: 50%;*/
+    margin: auto;
+    margin-top: 40px;
+    /* left: 50%; */
+    /* transform: translate(-50%, -50%); */
+    background-color: #FFFFFF;
+    padding: 30px;
+    /* display: inline-block; */
+    text-align: right;
+    z-index: -1;
+}
+
+.purple-link {
+    color: #d5a8de;
+}
+#link-login {
+    text-align: left;
+    margin-top: 5px;
+}
+
+.user-info, 
+.user-action {
+    border: none;
+}
+
+#container {
+            margin-top: 20vh;
+            margin-left: auto; /* Move the container to the right */
+            margin-right: 20px; /* Add some right margin for spacing */
+            text-align: center;
+}
+
+
+.user-info, .user-action {
+    background-color: #fff; /* White background color for form sections */
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.0);
+    background: rgba(217, 217, 217, 0.40);
+}
+
+.user-info ul,
+.user-action ul {
+    list-style: none; /* Remove default list styling for error messages */
+}
+
+.user-info label,
+.user-action label {
+    color:  #487B98 ; /* Purple color for labels */
+    display:block; /* separate the label and the input */
+    text-align: left;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-bottom: 5px;
+
+}
+.error {
+    text-align: center;
+    background-color: #487B98;
+    /* Red color */
+    color: #d5a8de;
+    /* White text color */
+    padding: 10px;
+    border-radius: 10px;
+    /* Adjust the border-radius as needed */
+    margin: 10px auto;
+    max-width: 600px;
+}
+.closebtn {
+    margin-left: 15px;
+    color: #d5a8de;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+  
+.closebtn:hover {
+    color: #487B98;
+}
+@media screen and (max-witdh: 600px)
+{
+    form {
+        width: auto;
+        height: auto;
+        margin: auto;
+    }
+
+    .user-info div {
+        margin-bottom: 15px;
+    }
+
+    .user-action div {
+        margin-top: 15px;
+    }
+}
