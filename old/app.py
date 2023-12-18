@@ -1,9 +1,11 @@
 import secrets
 import os
 from time import localtime, strftime
-from flask import Flask, flash, render_template, request, redirect, url_for
+from flask import Flask, abort, flash, jsonify, make_response, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from wtforms import ValidationError
 from flask_login import current_user, login_user, LoginManager, logout_user, login_required
+from verification import sendmail
 from wtfform_field import RegistrationForm, LoginForm
 from models import *
 from flask_socketio import SocketIO, send, emit, join_room, leave_room
@@ -55,6 +57,17 @@ def load_user(id):
 def home():
     return render_template('main.html')
 
+@app.route('/verify/<receiver_email>/<receiver_token>', methods=['GET'])
+def verify_email_token(receiver_email, receiver_token):
+    user = User.query.filter_by(verification_token=receiver_token).first()
+    if not user or user.email != receiver_email:
+        abort(404)  # User not found or email mismatch
+    user.is_verified = True
+    db.session.commit()
+
+    return render_template('status.html')
+
+
 @app.route("/index", methods=['GET', 'POST'], strict_slashes=False)
 def index():
     """
@@ -67,14 +80,22 @@ def index():
     reg_form = RegistrationForm()
 
     if reg_form.validate_on_submit():
-        username = reg_form.username.data
-        password = reg_form.password.data
-        
-        user = User(username=username, password=password)
-        db.session.add(user)
-        db.session.commit()
-        flash('Registered successfully. Please login.', 'success')
-        return redirect(url_for("login"))
+        # Attempt to register user
+        try:
+            user = reg_form.register_user()
+            # Send a verification email
+            verification_link = url_for('verify_email_token', receiver_email=user.email, receiver_token=user.verification_token, _external=True)
+            subject = 'Email Verification'
+            html_email = f"Welcome to CHATTER-HUB! Click the following link to verify your email: {verification_link}"
+            # Add the user to the database
+            db.session.add(user)
+            db.session.commit()
+            # Send verification email
+            sendmail(subject, html_email, user.email)
+            # Redirect to a page indicating the verification email has been sent
+            return render_template('verification_send.html', email=user.email)
+        except ValidationError as e:
+            flash(str(e), 'error')
     return render_template("index.html", form=reg_form)
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -91,7 +112,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
-        if user is None or not user.check_password(form.password.data):
+        if user is None or not user.check_password(form.password.data) or not user.is_verified == True:
             flash('invalid username or password', category='error')
             return redirect(url_for("login"))
         login_user(user, remember=form.remember_me.data)
